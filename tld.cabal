@@ -52,7 +52,8 @@ library
                        Network.URI.TLD
   
   -- Modules included in this library but not exported.
-  -- other-modules:       
+  other-modules:       
+                       Network.URI.TLD.Internal
   
   -- LANGUAGE extensions used by modules in this package.
   -- other-extensions:    
@@ -62,6 +63,7 @@ library
                          base >=4.7 && <4.8
                        , containers
                        , network-uri
+                       , template-haskell
                        , text
   
   -- Directories containing source files.
@@ -70,4 +72,7 @@ library
   
   -- Base language which the package is written in.
   default-language:    Haskell2010
+
+  ghc-options:
+      -Werror -Wall -fno-warn-orphans -fno-warn-type-defaults -fno-warn-name-shadowing
   
