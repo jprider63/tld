@@ -8,5 +8,5 @@ This package most likely isn't perfect, especially when handling unicode charact
 
 You can manually update the TLD list by running the following:
 
-    wget http://mxr.mozilla.org/mozilla/source/netwerk/dns/src/effective_tld_names.dat?raw=1 -O data/tld.dat
-		cabal install
+	wget http://mxr.mozilla.org/mozilla/source/netwerk/dns/src/effective_tld_names.dat?raw=1 -O data/tld.dat
+	cabal install
