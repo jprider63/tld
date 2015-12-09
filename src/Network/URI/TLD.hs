@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings, TemplateHaskell #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Network.URI.TLD (parseTLD, separateTLD, separateTLD') where
 
 import qualified Data.Set as Set
@@ -7,8 +7,6 @@ import qualified Data.Text as Text
 import qualified Network.URI as URI
 
 import Network.URI.TLD.Internal
-
--- $(tldSetQ)
 
 -- | Separate the subdomain, domain, and TLD of a URI. 
 separateTLD :: URI.URI -> Maybe (Text, Text, Text)
@@ -25,7 +23,7 @@ separateTLD' domain = helper "" "" $ Text.toLower domain
     where
         helper _ _ "" = Nothing
         helper subdomain domain tld = 
-            if Set.member tld $(tldSet) then
+            if Set.member tld tldSet then
                 Just (subdomain, domain, tld)
             else
                 let subdomain' = 

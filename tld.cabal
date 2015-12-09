@@ -10,7 +10,7 @@ name:                tld
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             0.2.0.0
+version:             0.3.0.0
 
 -- A short (one-line) description of the package.
 synopsis:            This project separates subdomains, domains, and top-level-domains from URLs. 
@@ -62,7 +62,6 @@ library
                          base >=4.7 && <4.9
                        , containers
                        , network-uri
-                       , template-haskell
                        , text
   
   -- Directories containing source files.
