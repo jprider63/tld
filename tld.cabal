@@ -75,6 +75,20 @@ library
       -Wall -fno-warn-orphans -fno-warn-type-defaults -fno-warn-name-shadowing
       -- -Werror -Wall -fno-warn-orphans -fno-warn-type-defaults -fno-warn-name-shadowing
 
+test-suite parser-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Main.hs
+  build-depends:       
+                       base
+                     , HUnit
+                     , network-uri
+                     , text
+                     , tld
+  default-language:    Haskell2010
+  ghc-options:
+      -Wall -fno-warn-orphans -fno-warn-type-defaults -fno-warn-name-shadowing
+
 source-repository head
   type:              git
   location:          https://github.com/jprider63/tld

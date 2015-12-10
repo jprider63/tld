@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Network.URI.TLD (parseTLD, separateTLD, separateTLD') where
+module Network.URI.TLD where
 
 import qualified Data.Set as Set
 import Data.Text (Text)
@@ -8,16 +8,32 @@ import qualified Network.URI as URI
 
 import Network.URI.TLD.Internal
 
--- | Separate the subdomain, domain, and TLD of a URI. 
-separateTLD :: URI.URI -> Maybe (Text, Text, Text)
-separateTLD uri = 
+-- | Parse a `URI`, and separate the subdomain, domain, and TLD of a URI. 
+parseTLDURI :: URI.URI -> Maybe (Text, Text, Text)
+parseTLDURI uri = 
     case URI.uriAuthority uri of
         Nothing ->
             Nothing
         Just uriAuth ->
             separateTLD' $ Text.pack $ URI.uriRegName uriAuth
 
--- | Separate the subdomain, domain, and TLD of a @Text@ string.
+-- | Parse a `String` URI, and separate the subdomain, domain, and TLD.
+parseTLD :: String -> Maybe (Text, Text, Text)
+parseTLD s = case URI.parseURI s of 
+    Nothing ->
+        Nothing
+    Just uri ->
+        parseTLDURI uri
+
+-- | Parse a `Text` URI, and separate the subdomain, domain, and TLD.
+parseTLDText :: Text -> Maybe (Text, Text, Text)
+parseTLDText = parseTLD . Text.unpack
+
+{-# DEPRECATED separateTLD "Use `parseTLDURI` instead." #-}
+separateTLD :: URI.URI -> Maybe (Text, Text, Text)
+separateTLD = parseTLDURI
+
+-- | Separate the subdomain, domain, and TLD of a @Text@ string. You probably want to use `parseTLDText`. 
 separateTLD' :: Text -> Maybe (Text, Text, Text)
 separateTLD' domain = helper "" "" $ Text.toLower domain
     where
@@ -42,11 +58,3 @@ separateTLD' domain = helper "" "" $ Text.toLower domain
                     else
                         helper subdomain' domain' tld''
                         
--- | Parse a URI, and separate the subdomain, domain, and TLD.
-parseTLD :: String -> Maybe (Text, Text, Text)
-parseTLD s = case URI.parseURI s of 
-    Nothing ->
-        Nothing
-    Just uri ->
-        separateTLD uri
-
